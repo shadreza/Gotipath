@@ -1,0 +1,70 @@
+.muted-text-and-toggler-div{
+    display:flex;
+    justify-content:space-between;
+}
+
+.toggler-switch{
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.switch{
+    position:relative;
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.slider{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.switch input{
+    display: none;
+}
+
+.slider::before{
+    position: absolute;
+    content:"";
+    height: 14px;
+    width: 14px;
+    left: 2px;
+    bottom: 0.19rem;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 100%;
+}
+
+input:checked + .slider{
+    background-color: #5F63F2;
+}
+
+input:checked + .slider::before{
+    transform: translateX(12px);
+}
+
+#twoFactorAuthOn{
+    color:#9299B8;
+}
+
+#twoFactorAuthOff{
+    color:#5F63F2;
+}
+
+.briefcase-icon{
+    width:16px;
+}
+
+#dummy{
+    display:none;
+    width:100%;
+}

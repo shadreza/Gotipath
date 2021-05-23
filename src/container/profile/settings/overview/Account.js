@@ -5,8 +5,10 @@ import { Cards } from '../../../../components/cards/frame/cards-frame';
 import { Button } from '../../../../components/buttons/buttons';
 import { BasicFormWrapper } from '../../../styled';
 import Heading from '../../../../components/heading/heading';
+import './stylingUpdateAccount.css';
 
 const Account = () => {
+
   const [form] = Form.useForm();
 
   let user_info = 
@@ -20,7 +22,7 @@ const Account = () => {
       country:                    'Bangladesh', 
       billing_type:               'pre-paid' , 
       mobile:                     '01713000000',
-      two_factor_authentication:  true,
+      two_factor_authentication:  false,
       api_key:                    '123123123123'
     };
 
@@ -38,6 +40,8 @@ const Account = () => {
     e.preventDefault();
     form.resetFields();
   };
+
+  let two_factor_auth_message = 'disabled';
 
   const handleChange = (whichPropertyToChange,e) => {
     
@@ -80,6 +84,20 @@ const Account = () => {
     else if(whichPropertyToChange==="twoFactorAuth")
     {
       user_info.two_factor_authentication = !user_info.two_factor_authentication;
+    
+      if(user_info.two_factor_authentication === true)
+      {
+        document.getElementById('twoFactorAuthOn').style.color="#5F63F2";
+        document.getElementById('twoFactorAuthOff').style.color="#9299B8";
+        two_factor_auth_message = 'enabled'
+      }
+      else if(user_info.two_factor_authentication === false)
+      {
+        document.getElementById('twoFactorAuthOn').style.color="#9299B8";
+        document.getElementById('twoFactorAuthOff').style.color="#5F63F2";
+        two_factor_auth_message = 'disabled'
+      }
+
     }
     else if(whichPropertyToChange==="apiKey")
     {
@@ -155,7 +173,21 @@ const Account = () => {
                         </Form.Item>
                         <br />
                         <Form.Item name="twoFactorAuth" initialValue={state.two_factor_authentication} label="Two Factor Authentiication">
-                          <Input onChange={e => {handleChange('twoFactorAuth',e)}} />
+                          <div className="muted-text-and-toggler-div">
+                            <div className="muted-text-on-left">
+                              <p className="text-muted">Two factor authentication is currently {two_factor_auth_message}</p>
+                            </div>
+                            <div className="toggler-on-right">
+                              <div className="toggler-switch">
+                                <p className="text-toggler" id="twoFactorAuthOff">Off</p>
+                                <label className="switch">
+                                  <input type="checkbox"/>
+                                  <span className="slider"  id="switch-btn" onClick={(e)=>handleChange('twoFactorAuth',e)}/>
+                                </label>
+                                <p className="text-toggler" id="twoFactorAuthOn">On</p>
+                              </div>
+                            </div>
+                          </div>
                         </Form.Item>
                         <br />
                         <Form.Item name="apiKey" initialValue={state.api_key} label="API Key">
