@@ -9,13 +9,29 @@ import Heading from '../../../../components/heading/heading';
 const Account = () => {
   const [form] = Form.useForm();
 
-  const [state, setState] = useState({
-    name: 'clayton',
-    values: null,
-  });
+  let user_info = 
+    {
+      first_name:                 'Shad',
+      last_name:                  'Reza',
+      email:                      'contact@gmail.com',
+      address:                    'Mirpur-2',
+      city:                       'Dhaka',
+      zip_code:                   1216,
+      country:                    'Bangladesh', 
+      billing_type:               'pre-paid' , 
+      mobile:                     '01713000000',
+      two_factor_authentication:  true,
+      api_key:                    '123123123123'
+    };
 
-  const handleSubmit = values => {
-    setState({ ...state, values });
+
+  const [state, setState] = useState(
+    user_info    
+  );
+
+  const handleSubmit = () => {
+    setState({ ...state });
+    console.log(user_info);
   };
 
   const handleCancel = e => {
@@ -23,10 +39,56 @@ const Account = () => {
     form.resetFields();
   };
 
-  const handleChange = e => {
-    setState({
-      name: e.target.value,
-    });
+  const handleChange = (whichPropertyToChange,e) => {
+    
+    if(whichPropertyToChange==="firstName")
+    {
+      user_info.first_name = e.target.value;
+    }
+    else if(whichPropertyToChange==="lastName")
+    {
+      user_info.last_name = e.target.value;
+    }
+    else if(whichPropertyToChange==="email")
+    {
+      user_info.email = e.target.value;
+    }
+    else if(whichPropertyToChange==="address")
+    {
+      user_info.address = e.target.value;
+    }
+    else if(whichPropertyToChange==="city")
+    {
+      user_info.city = e.target.value;
+    }
+    else if(whichPropertyToChange==="zipCode")
+    {
+      user_info.zip_code = e.target.value;
+    }
+    else if(whichPropertyToChange==="country")
+    {
+      user_info.country = e.target.value;
+    }
+    else if(whichPropertyToChange==="billingType")
+    {
+      user_info.billing_type = e.target.value;
+    }
+    else if(whichPropertyToChange==="mobile")
+    {
+      user_info.mobile = e.target.value;
+    }
+    else if(whichPropertyToChange==="twoFactorAuth")
+    {
+      user_info.two_factor_authentication = !user_info.two_factor_authentication;
+    }
+    else if(whichPropertyToChange==="apiKey")
+    {
+      user_info.api_key = e.target.value;
+    }
+
+    setState(
+      user_info
+    );       
   };
 
   return (
@@ -35,7 +97,7 @@ const Account = () => {
         title={
           <div className="setting-card-title">
             <Heading as="h4">Account Settings</Heading>
-            <span>Update your username and manage your account</span>
+            <span>Update your account details</span>
           </div>
         }
       >
@@ -47,20 +109,59 @@ const Account = () => {
                   <Row justify="center">
                     <Col xxl={10} lg={16} md={18} xs={24}>
                       <div className="account-form">
-                        <Form.Item name="username" initialValue={state.name} label="Username">
-                          <Input onChange={handleChange} />
+                        <Form.Item name="firstName" initialValue={state.first_name} label="First Name">
+                          <Input onChange={e => {handleChange('firstName',e)}} />
+                        </Form.Item>
+                        <br />
+                        <Form.Item name="lastName" initialValue={state.last_name} label="Last Name">
+                          <Input onChange={e => {handleChange('lastName',e)}} />
                         </Form.Item>
                         <p>
-                          Your Dashboard URL: http://dashboard.com/<span>{state.name}</span>
+                        Your Fullname : <strong>{state.first_name + " " + state.last_name}</strong>
                         </p>
                         <Form.Item
                           name="email"
-                          initialValue="contact@example.com"
+                          initialValue={user_info.email}
                           rules={[{ type: 'email' }]}
                           label="Email"
                         >
                           <Input />
                         </Form.Item>
+                        <br />
+                        <Form.Item name="address" initialValue={state.address} label="Address">
+                          <Input onChange={e => {handleChange('address',e)}} />
+                        </Form.Item>
+                        <br />
+                        <Form.Item name="city" initialValue={state.city} label="City">
+                          <Input onChange={e => {handleChange('city',e)}} />
+                        </Form.Item>
+                        <br />
+                        <Form.Item name="zipCode" initialValue={state.zip_code} label="Zip Code">
+                          <Input onChange={e => {handleChange('zipCode',e)}} />
+                        </Form.Item>
+                        <br />
+                        <Form.Item name="country" initialValue={state.country} label="Country">
+                          <Input onChange={e => {handleChange('country',e)}} />
+                        </Form.Item>
+                        <p>
+                        Your Full Address : <strong>{state.address + ", " + state.city + "-" + state.zip_code + ", " + state.country}</strong>
+                        </p>
+                        <Form.Item name="billingType" initialValue={state.billing_type} label="Billing Type">
+                          <Input onChange={e => {handleChange('billingType',e)}} />
+                        </Form.Item>
+                        <br />
+                        <Form.Item name="mobile" initialValue={state.mobile} label="Mobile">
+                          <Input onChange={e => {handleChange('mobile',e)}} />
+                        </Form.Item>
+                        <br />
+                        <Form.Item name="twoFactorAuth" initialValue={state.two_factor_authentication} label="Two Factor Authentiication">
+                          <Input onChange={e => {handleChange('twoFactorAuth',e)}} />
+                        </Form.Item>
+                        <br />
+                        <Form.Item name="apiKey" initialValue={state.api_key} label="API Key">
+                          <Input onChange={e => {handleChange('apiKey',e)}} />
+                        </Form.Item>
+                        <br />
                       </div>
                     </Col>
                   </Row>
