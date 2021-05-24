@@ -33,6 +33,19 @@ const Account = () => {
 
   const handleSubmit = () => {
     console.log(state);
+    alert(
+      " First Name : " + state.first_name + 
+      "\n Last Name : " + state.last_name + 
+      "\n Email : " + state.email + 
+      "\n Address : " + state.address +
+      "\n City : " + state.city + 
+      "\n Zip Code : " + state.zip_code + 
+      "\n Country : " + state.country + 
+      "\n Billing Type : " + state.billing_type + 
+      "\n Mobile : " + state.mobile + 
+      "\n Two Factor Authentication : "+ state.two_factor_authentication + 
+      "\n API key : " + state.api_key
+    );
   };
 
   const handleCancel = e => {
