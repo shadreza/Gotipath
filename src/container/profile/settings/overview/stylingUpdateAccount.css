@@ -60,11 +60,10 @@ input:checked + .slider::before{
     color:#5F63F2;
 }
 
-.briefcase-icon{
-    width:16px;
+#billingTypePostPaid{
+    color:#9299B8;
 }
 
-#dummy{
-    display:none;
-    width:100%;
+#billingTypePrePaid{
+    color:#5F63F2;
 }

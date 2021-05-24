@@ -13,17 +13,17 @@ const Account = () => {
 
   let user_info = 
     {
-      first_name:                 'Shad',
-      last_name:                  'Reza',
-      email:                      'contact@gmail.com',
-      address:                    'Mirpur-2',
-      city:                       'Dhaka',
-      zip_code:                   1216,
-      country:                    'Bangladesh', 
-      billing_type:               'pre-paid' , 
-      mobile:                     '01713000000',
-      two_factor_authentication:  false,
-      api_key:                    '123123123123'
+      first_name:                     'Shad',
+      last_name:                      'Reza',
+      email:                          'contact@gmail.com',
+      address:                        'Mirpur-2',
+      city:                           'Dhaka',
+      zip_code:                       1216,
+      country:                        'Bangladesh', 
+      billing_type:                   'Pre-paid' , 
+      mobile:                         '01713000000',
+      two_factor_authentication:      false,
+      api_key:                        '123123123123'
     };
 
 
@@ -32,16 +32,13 @@ const Account = () => {
   );
 
   const handleSubmit = () => {
-    setState({ ...state });
-    console.log(user_info);
+    console.log(state);
   };
 
   const handleCancel = e => {
     e.preventDefault();
     form.resetFields();
   };
-
-  let two_factor_auth_message = 'disabled';
 
   const handleChange = (whichPropertyToChange,e) => {
     
@@ -75,7 +72,18 @@ const Account = () => {
     }
     else if(whichPropertyToChange==="billingType")
     {
-      user_info.billing_type = e.target.value;
+      if(user_info.billing_type === 'Pre-paid')
+      {
+        user_info.billing_type = 'Post-paid';
+        document.getElementById('billingTypePrePaid').style.color="#9299B8";
+        document.getElementById('billingTypePostPaid').style.color="#5F63F2";
+      }
+      else
+      {
+        user_info.billing_type = 'Pre-paid';
+        document.getElementById('billingTypePrePaid').style.color="#5F63F2";
+        document.getElementById('billingTypePostPaid').style.color="#9299B8";
+      }
     }
     else if(whichPropertyToChange==="mobile")
     {
@@ -84,18 +92,15 @@ const Account = () => {
     else if(whichPropertyToChange==="twoFactorAuth")
     {
       user_info.two_factor_authentication = !user_info.two_factor_authentication;
-    
-      if(user_info.two_factor_authentication === true)
+      if(user_info.two_factor_authentication)
       {
         document.getElementById('twoFactorAuthOn').style.color="#5F63F2";
         document.getElementById('twoFactorAuthOff').style.color="#9299B8";
-        two_factor_auth_message = 'enabled'
       }
-      else if(user_info.two_factor_authentication === false)
+      else if(!user_info.two_factor_authentication)
       {
         document.getElementById('twoFactorAuthOn').style.color="#9299B8";
         document.getElementById('twoFactorAuthOff').style.color="#5F63F2";
-        two_factor_auth_message = 'disabled'
       }
 
     }
@@ -103,10 +108,10 @@ const Account = () => {
     {
       user_info.api_key = e.target.value;
     }
-
     setState(
       user_info
-    );       
+    );      
+
   };
 
   return (
@@ -164,18 +169,29 @@ const Account = () => {
                         <p>
                         Your Full Address : <strong>{state.address + ", " + state.city + "-" + state.zip_code + ", " + state.country}</strong>
                         </p>
-                        <Form.Item name="billingType" initialValue={state.billing_type} label="Billing Type">
-                          <Input onChange={e => {handleChange('billingType',e)}} />
-                        </Form.Item>
-                        <br />
+                        <div className="billing-type muted-text-and-toggler-div">
+                            <div className="muted-text-on-left">
+                            <Form.Item initialValue={state.billing_type} label="Billing Type"></Form.Item>
+                            </div>
+                            <div className="toggler-on-right">
+                              <div className="toggler-switch">
+                                <p className="text-toggler" id="billingTypePrePaid">Pre Paid</p>
+                                <label className="switch">
+                                  <input type="checkbox"/>
+                                  <span className="slider"  id="switch-btn" onClick={(e)=>handleChange('billingType',e)}/>
+                                </label>
+                                <p className="text-toggler" id="billingTypePostPaid">Post Paid</p>
+                              </div>
+                            </div>
+                          </div>
                         <Form.Item name="mobile" initialValue={state.mobile} label="Mobile">
                           <Input onChange={e => {handleChange('mobile',e)}} />
                         </Form.Item>
                         <br />
-                        <Form.Item name="twoFactorAuth" initialValue={state.two_factor_authentication} label="Two Factor Authentiication">
-                          <div className="muted-text-and-toggler-div">
+      
+                        <div className="two-factor-authentication muted-text-and-toggler-div">
                             <div className="muted-text-on-left">
-                              <p className="text-muted">Two factor authentication is currently {two_factor_auth_message}</p>
+                            <Form.Item initialValue={state.two_factor_authentication} label="Two Factor Authentiication"></Form.Item>
                             </div>
                             <div className="toggler-on-right">
                               <div className="toggler-switch">
@@ -188,7 +204,7 @@ const Account = () => {
                               </div>
                             </div>
                           </div>
-                        </Form.Item>
+                        
                         <br />
                         <Form.Item name="apiKey" initialValue={state.api_key} label="API Key">
                           <Input onChange={e => {handleChange('apiKey',e)}} />
