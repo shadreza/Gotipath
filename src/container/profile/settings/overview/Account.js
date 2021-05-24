@@ -13,17 +13,17 @@ const Account = () => {
 
   let user_info = 
     {
-      first_name:                     'Shad',
-      last_name:                      'Reza',
-      email:                          'contact@gmail.com',
-      address:                        'Mirpur-2',
-      city:                           'Dhaka',
-      zip_code:                       1216,
-      country:                        'Bangladesh', 
-      billing_type:                   'Pre-paid' , 
-      mobile:                         '01713000000',
-      two_factor_authentication:      false,
-      api_key:                        '123123123123'
+      first_name:                'Shad',
+      last_name:                 'Reza',
+      email:                     'contact@gmail.com',
+      address:                   'Mirpur-2',
+      city:                      'Dhaka',
+      zip_code:                  1216,
+      country:                   'Bangladesh', 
+      billing_type:              'Pre-paid' , 
+      mobile:                    '01713000000',
+      two_factor_authentication: false,
+      api_key:                   '123123123123'
     };
 
 
@@ -33,6 +33,7 @@ const Account = () => {
 
   const handleSubmit = () => {
     console.log(state);
+//     alert from component
     alert(
       " First Name : " + state.first_name + 
       "\n Last Name : " + state.last_name + 
@@ -48,43 +49,28 @@ const Account = () => {
     );
   };
 
-  const handleCancel = e => {
-    e.preventDefault();
-    form.resetFields();
-  };
+//   const handleCancel = e => {
+//     e.preventDefault();
+//     form.resetFields();
+//   };
 
   const handleChange = (whichPropertyToChange,e) => {
     
-    if(whichPropertyToChange==="firstName")
-    {
+    if(whichPropertyToChange==="firstName") {
       user_info.first_name = e.target.value;
-    }
-    else if(whichPropertyToChange==="lastName")
-    {
+    } else if(whichPropertyToChange==="lastName") {
       user_info.last_name = e.target.value;
-    }
-    else if(whichPropertyToChange==="email")
-    {
+    } else if(whichPropertyToChange==="email") {
       user_info.email = e.target.value;
-    }
-    else if(whichPropertyToChange==="address")
-    {
+    } else if(whichPropertyToChange==="address") {
       user_info.address = e.target.value;
-    }
-    else if(whichPropertyToChange==="city")
-    {
+    } else if(whichPropertyToChange==="city") {
       user_info.city = e.target.value;
-    }
-    else if(whichPropertyToChange==="zipCode")
-    {
+    } else if(whichPropertyToChange==="zipCode") {
       user_info.zip_code = e.target.value;
-    }
-    else if(whichPropertyToChange==="country")
-    {
+    } else if(whichPropertyToChange==="country") {
       user_info.country = e.target.value;
-    }
-    else if(whichPropertyToChange==="billingType")
-    {
+    } else if(whichPropertyToChange==="billingType") {
       if(user_info.billing_type === 'Pre-paid')
       {
         user_info.billing_type = 'Post-paid';
@@ -97,30 +83,24 @@ const Account = () => {
         document.getElementById('billingTypePrePaid').style.color="#5F63F2";
         document.getElementById('billingTypePostPaid').style.color="#9299B8";
       }
-    }
-    else if(whichPropertyToChange==="mobile")
-    {
+    } else if(whichPropertyToChange==="mobile") {
       user_info.mobile = e.target.value;
-    }
-    else if(whichPropertyToChange==="twoFactorAuth")
-    {
+    } else if(whichPropertyToChange==="twoFactorAuth") {
+      
       user_info.two_factor_authentication = !user_info.two_factor_authentication;
-      if(user_info.two_factor_authentication)
-      {
+      
+      if(user_info.two_factor_authentication) {
         document.getElementById('twoFactorAuthOn').style.color="#5F63F2";
         document.getElementById('twoFactorAuthOff').style.color="#9299B8";
-      }
-      else if(!user_info.two_factor_authentication)
-      {
+      } else if(!user_info.two_factor_authentication) {
         document.getElementById('twoFactorAuthOn').style.color="#9299B8";
         document.getElementById('twoFactorAuthOff').style.color="#5F63F2";
       }
 
-    }
-    else if(whichPropertyToChange==="apiKey")
-    {
+    } else if(whichPropertyToChange==="apiKey") {
       user_info.api_key = e.target.value;
     }
+    
     setState(
       user_info
     );      
